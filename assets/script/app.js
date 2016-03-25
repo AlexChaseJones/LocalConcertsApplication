@@ -11,6 +11,7 @@ function ajaxBuild(){
       url: queryURL,
       method: 'GET'})
       .done(function(response) {
+      response.addHeader("Access-Control-Allow-Origin", "*");
       console.log(response)
     });
 }
