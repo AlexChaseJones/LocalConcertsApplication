@@ -100,7 +100,7 @@ function generateURL(solo, artist, city, state, radius){
     }
 
 
-    queryURL = "http://api.bandsintown.com/" + introURL + artistQuery + endURL + locationQuery + "&page=1&per_page=10&radius=" + radius + "&format=json&app_id=Concertch"
+    queryURL = "https://api.bandsintown.com/" + introURL + artistQuery + endURL + locationQuery + "&page=1&per_page=10&radius=" + radius + "&format=json&app_id=Concertch"
 }
 
 function createShowCard(name, date, venue, city, state, tickets, ticketsURL){
