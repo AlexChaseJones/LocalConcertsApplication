@@ -6,7 +6,7 @@
 
 .showCard {
 	width: 290px;
-	height:290px;
+	height:200px;
 	display: inline-block;
 	margin: 10px;
 	border-radius: 5px;
@@ -14,16 +14,21 @@
 	text-align: center;
 	vertical-align: bottom;
 	position: relative;
-	font-family: 'Comfortaa', cursive;
+	font-family: 'Raleway', san-serif;
 	box-shadow: 5px 5px 15px 1px black;
+	color: white;
+}
+
+.showCard a {
+	color: white;
 }
 
 .available {
-	background-color: rgba(0,145,0,.7);
+	background-color: rgba(0,10,0,.8);
 }
 
 .unavailable {
-	background-color: rgba(145,0,0,.7);
+	background-color: rgba(10,0,0,.8);
 }
 
 .buyTicket {
@@ -39,27 +44,24 @@
 }
 
 .showCard > div {
-	margin: 10px auto;
+	margin: 5px auto;
 	width: 250px;
 	text-shadow: none;
 }
 
-.cardName::-webkit-scrollbar { 
+.cardVenue::-webkit-scrollbar, .cardDate::-webkit-scrollbar, .cardName::-webkit-scrollbar { 
     display: none; 
 }
 
-.cardVenue::-webkit-scrollbar { 
-    display: none; 
-}
 .cardName {
-	font-size: 1.5em;
+	font-size: 1.2em;
 	font-weight: bold;
 	color: white;
 	padding: 5px;
 	background-color: rgba(0,0,0,.3);
 	border-radius: 5px;
-	box-shadow: 0px 0px 5px 1px black;
-	height: 45px;
+	box-shadow: 0px 0px 5px 1px black inset;
+	height: 38px;
 	overflow-y: scroll;
 	white-space: nowrap;
 }
@@ -68,15 +70,17 @@
 	border-top:2px solid black;
 	border-bottom:2px solid black;
 	background: radial-gradient(rgba(255,255,255,.7), rgba(255,255,255,.1), rgba(255,255,255,0));
-
+	height: 33px;
+	overflow-x: scroll;
+	white-space: nowrap; 
 }
 
 .cardVenue {
-	font-size: 1.7em;
+	font-size: 1.2em;
 	width: 270px;
-    height: 100px;
-    line-height: 85px;
-    padding: 5px;
+    height: 60px;
+    line-height: 40px;
+    padding: 0px 5px;
     text-align: center;
     background-color: rgba(0,0,0,.3);
     border-radius: 15px;
@@ -96,7 +100,7 @@
 .cardTicket {
 	width: 270px !important;
 	position: absolute;
-	bottom: 0px;
+	bottom: 5px;
 }
 
 .showCard > div > p {
@@ -109,6 +113,6 @@
 #tabOne, #tabTwo {
   width: 100%;
   text-shadow: none;
-  font-family: 'Comfortaa', cursive;
+  font-family: 'Raleway', cursive;
   font-size: 1.5em;
 }

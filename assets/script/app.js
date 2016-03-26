@@ -98,7 +98,7 @@ function generateURL(solo, artist, city, state, radius){
 }
 
 function createShowCard(name, date, venue, city, state, tickets, ticketsURL){
-	date = moment(date).format('LLL');
+	date = moment(date).format('MMMM Do YYYY');
 	console.log(ticketsURL)
 	debugger;
 	if (tickets == "available") {
@@ -111,9 +111,9 @@ function createShowCard(name, date, venue, city, state, tickets, ticketsURL){
 	}
 	console.log(tickets)
 	var nameInfo = $('<div class="cardName">').append('<p>' + name + '</p>');
-	var dateInfo = $('<div class="cardDate">').append('<p>' + date + '</p>');
+	var dateInfo = $('<div class="cardDate">').append('<p>' + date + ' - ' + city + ' ' + state + '</p>');
 	var venueInfo = $('<div class="cardVenue">').append('<p><u>Venue</u><br>' + venue + '</p>');
-	var locationInfo = $('<div class="cardLocation">').append('<p>' + city + ' ' + state + '</p>');
+	var locationInfo = $('<div class="cardLocation">').append('');
 	var ticketInfo = $('<div class="cardTicket">').append(ticketStatus);
 	var newCard = $('<div class="showCard">');
 	(newCard).append(nameInfo).append(dateInfo).append(venueInfo).append(locationInfo).append(ticketInfo);
