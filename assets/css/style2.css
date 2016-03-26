@@ -1,6 +1,7 @@
+
+
 #upcoming {
 	border-top: 3px solid white;
-
 }
 
 .showCard {
@@ -18,11 +19,11 @@
 }
 
 .available {
-	background-color: rgba(0,155,0,.5);
+	background-color: rgba(0,145,0,.7);
 }
 
 .unavailable {
-	background-color: rgba(155,0,0,.5);
+	background-color: rgba(145,0,0,.7);
 }
 
 .buyTicket {
@@ -34,17 +35,22 @@
 }
 
 #tabs {
-	/*background-color: rgba(0,0,0,.5);*/
+	 text-shadow: none;
 }
-#tabs-1 {
-	/*background-color: rgba(255,255,255,1);*/
-}
+
 .showCard > div {
 	margin: 10px auto;
 	width: 250px;
 	text-shadow: none;
 }
 
+.cardName::-webkit-scrollbar { 
+    display: none; 
+}
+
+.cardVenue::-webkit-scrollbar { 
+    display: none; 
+}
 .cardName {
 	font-size: 1.5em;
 	font-weight: bold;
@@ -53,11 +59,15 @@
 	background-color: rgba(0,0,0,.3);
 	border-radius: 5px;
 	box-shadow: 0px 0px 5px 1px black;
+	height: 45px;
+	overflow-y: scroll;
+	white-space: nowrap;
 }
 
 .cardDate {
 	border-top:2px solid black;
 	border-bottom:2px solid black;
+	background: radial-gradient(rgba(255,255,255,.7), rgba(255,255,255,.1), rgba(255,255,255,0));
 
 }
 
@@ -65,11 +75,15 @@
 	font-size: 1.7em;
 	width: 270px;
     height: 100px;
-    line-height: 100px;
+    line-height: 85px;
+    padding: 5px;
     text-align: center;
     background-color: rgba(0,0,0,.3);
     border-radius: 15px;
     color: white;
+    overflow-x: scroll;
+    box-shadow: 0px 0px 5px 1px black inset;
+    border:1px solid rgba(0,0,0,.5);
 }
 
 .cardLocation {
@@ -95,4 +109,6 @@
 #tabOne, #tabTwo {
   width: 100%;
   text-shadow: none;
+  font-family: 'Comfortaa', cursive;
+  font-size: 1.5em;
 }
