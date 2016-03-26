@@ -158,10 +158,4 @@ $(function() {
 //Returns all events in Boston (page 2), with 3 results. no callback.
 
 //http://api.bandsintown.com/events/recommended.json?artists[]=Common&artists[]=Dwele&location=Chicago,IL&app_id=YOUR_APP_ID&callback=bitEvents
-//Returns recommended upcoming shows for Common or Dwele fans within 25 miles of Chicago, IL.
-
-
-
-
-
 
