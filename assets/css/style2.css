@@ -1,7 +1,25 @@
 
 
 #upcoming {
-	border-top: 3px solid white;
+	width: 700px;
+	background-color: rgba(255,255,255,.9);
+	box-shadow: 0px 0px 10px 1px black inset;
+}
+
+#panelOne, #panelTwo {
+	width: 310px;
+}
+
+#panelOne {
+	float: left;
+}
+
+#panelTwo {
+	float: right;
+}
+
+.clearfix {
+	clear: both;
 }
 
 .showCard {
@@ -9,7 +27,7 @@
 	height:200px;
 	display: inline-block;
 	margin: 10px;
-	border-radius: 5px;
+	border-radius: 0px;
 	padding: 10px;
 	text-align: center;
 	vertical-align: bottom;
@@ -24,11 +42,11 @@
 }
 
 .available {
-	background-color: rgba(0,10,0,.8);
+	background-color: rgba(0,20,0,.7);
 }
 
 .unavailable {
-	background-color: rgba(10,0,0,.8);
+	background-color: rgba(20,0,0,.7);
 }
 
 .buyTicket {
@@ -108,11 +126,4 @@
 	vertical-align: middle;
     line-height: 29px;
     display: inline-block;
-}
-
-#tabOne, #tabTwo {
-  width: 100%;
-  text-shadow: none;
-  font-family: 'Raleway', cursive;
-  font-size: 1.5em;
 }

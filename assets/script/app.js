@@ -2,12 +2,12 @@ var locationArray = [];
 
 $('#upcoming-container').hide();
 
-$('#search').submit(function(e){
-	$('#upcoming-container').hide('slow');
-	$('#errorMSG').remove();
+$('#search').submit(function(e){ //this is the main function of the page
+	$('#upcoming-container').hide('slow'); //Handles upcoming container animation
+	$('#errorMSG').remove(); 
 	e.preventDefault();
-	locationArray = [];
-	var artist = $('#artist').val().trim();
+	locationArray = []; //resets location Array to empty.
+	var artist = $('#artist').val().trim(); //gets user inputted values
 	var city = $('#city').val().trim();
 	var state = $('#state').val();
 	var radius = $('#radius').val();
@@ -29,7 +29,8 @@ $('#search').submit(function(e){
 	if (city && state) {
 		city = city + ",";
 	}
-	$('#tabOneInner').empty();
+	$('#tabOneInner').empty(); //Empties panel contents;
+	$('#tabTwoInner').empty();
 
 	if (artist == "" && city == "" && state == "") {
 		$('#submitButton').after('<p id="errorMSG">Please enter at least one field</p>')
@@ -39,32 +40,37 @@ $('#search').submit(function(e){
 		        scrollTop: $("#upcoming").offset().top
 		    }, 500);
 		});
-		generateURL(solo, artist, city, state, radius);
-		ajaxBuild();
+		generateURL(solo, artist, city, state, radius);	//Generates URL for AJAX.
+		ajaxBuild(); //locationArray is costructed in here, so that it can be used below
+		//davidsFunction(locationArray)
+		//-----Davids function will go here------
+		//
+		//
+		//
 		
 	}
 });
 
 function ajaxBuild(){
 	$.ajax({
-    url: queryURL,
+    url: queryURL, //QueryURL variable is built with the generateURL function.
     method: 'GET',
     crossDomain: true,
     dataType: 'jsonp'
 	}).done(function(response) {
-		console.log(response)
 	    var limit = 0;
-	    for (var i = 0; i < response.length; i++) {
-			if (limit < 12) {
+	    for (var i = 0; i < response.length; i++) { 
+			if (limit < 12) { //This for loop returns a MAX of 12 responses but functions correctly if there are less than 12.
 	        	limit++;
 	        	createShowCard(response[i].artists[0].name,response[i].datetime, response[i].venue.name, response[i].venue.city, response[i].venue.region, response[i].ticket_status, response[i].ticket_url);
+	      			//^^^^^Builds the HTML elements that are appended to #panelOne
 	      		buildMapObjects(response[i].artists[0].name, response[i].venue.name, response[i].venue.latitude, response[i].venue.longitude)
+	      			//^^^^^^Builds the javascript array of venue objects that are stored in "locationArray"
 	      	} else {
 	        	i = response.length;
+	        	//Ends the for loop if limit is reached
 	    	}
 	    };
-
-	    //davidsFunction(locationArray)
 	});
 }
 
