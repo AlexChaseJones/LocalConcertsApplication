@@ -18,6 +18,7 @@
 	float: right;
 }
 
+
 .clearfix {
 	clear: both;
 }
@@ -126,4 +127,11 @@
 	vertical-align: middle;
     line-height: 29px;
     display: inline-block;
+}
+
+.maps {
+	width: 290px;
+	height: 200px;
+	margin: 20px;
+	padding: 10px;
 }

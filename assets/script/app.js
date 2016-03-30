@@ -4,7 +4,7 @@ $('#upcoming-container').hide();
 
 $('#search').submit(function(e){ //this is the main function of the page
 	$('#upcoming-container').hide('slow'); //Handles upcoming container animation
-	$('#errorMSG').remove(); 
+	$('#errorMSG').remove();
 	e.preventDefault();
 	locationArray = []; //resets location Array to empty.
 	var artist = $('#artist').val().trim(); //gets user inputted values
@@ -42,11 +42,7 @@ $('#search').submit(function(e){ //this is the main function of the page
 		});
 		generateURL(solo, artist, city, state, radius);	//Generates URL for AJAX.
 		ajaxBuild(); //locationArray is costructed in here, so that it can be used below
-		//davidsFunction(locationArray)
-		//-----Davids function will go here------
-		//
-		//
-		//
+
 		
 	}
 });
@@ -64,8 +60,7 @@ function ajaxBuild(){
 	        	limit++;
 	        	createShowCard(response[i].artists[0].name,response[i].datetime, response[i].venue.name, response[i].venue.city, response[i].venue.region, response[i].ticket_status, response[i].ticket_url);
 	      			//^^^^^Builds the HTML elements that are appended to #panelOne
-	      		buildMapObjects(response[i].artists[0].name, response[i].venue.name, response[i].venue.latitude, response[i].venue.longitude)
-	      			//^^^^^^Builds the javascript array of venue objects that are stored in "locationArray"
+	      			showMap(response, i);
 	      	} else {
 	        	i = response.length;
 	        	//Ends the for loop if limit is reached
@@ -106,7 +101,7 @@ function generateURL(solo, artist, city, state, radius){
 function createShowCard(name, date, venue, city, state, tickets, ticketsURL){
 	date = moment(date).format('MMMM Do YYYY');
 	console.log(ticketsURL)
-	debugger;
+
 	if (tickets == "available") {
 		ticketStatus = $('<a target="_blank">');
 		ticketStatus.attr('href', ticketsURL);
@@ -134,17 +129,35 @@ function createShowCard(name, date, venue, city, state, tickets, ticketsURL){
 
 }
 
-function buildMapObjects(name, venue, latitude, longitude){
-	var venueObject = {
-		artist: name,
-		venue: venue,
-		latitude: latitude,
-		longitude: longitude
-	}
+function showMap (response, i) {
+	currentVenue = new google.maps.LatLng(response[i].venue.latitude, response[i].venue.longitude);
+    function initialize()
+    {
+     mapProp = {
+      center:currentVenue,
+      zoom:12,
+      mapTypeId:google.maps.MapTypeId.ROADMAP
+      };
+     var mapDiv = $('<div>');
+     mapDiv.attr('id', i);
+     mapDiv.addClass('maps')
+     $('#tabTwoInner').append(mapDiv);
+     map = new google.maps.Map(document.getElementById(i),mapProp);
 
-	locationArray.push(venueObject)
+    var marker=new google.maps.Marker({
+      position:currentVenue,
+      });
 
+    marker.setMap(map);
+    var infowindow = new google.maps.InfoWindow({
+          content: "venue name"
+          });
+
+        infowindow.open(map,marker);
+      }
+initialize();
 }
+
 $(function() {
     $("#tabs").tabs();
   });
