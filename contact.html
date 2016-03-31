@@ -16,7 +16,7 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
   <link rel="stylesheet" type="text/css" href="assets/css/style2.css">
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnxgE3AHJO1iESalw0NdaeSX0qHmBkP-A&callback=initMap"></script>
-	<title>Concertch</title>
+	<title>Concertch - Contact</title>
 </head>
  <body>
 
@@ -42,43 +42,28 @@
             <h1 class="cover-heading">Concertch is your place to locate your favorite bands and venues</h1>
             <p class="lead">Enter an Artist and/or Location Below to search</p>
             <p class="lead">
-            <form id="search">
-            	<div class="form-group">
-            	 	<label for="artist">Artist:</label>
-            	 	<input type="text" id="artist" class="form-control" placeholder="Artist"></input>
-            	</div>
-            	<div class="form-group">
+            <div id="form-messages"></div>
+            <form id="ajax-contact" method="post" action="mailer.php">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input class="form-control" type="text" id="name" name="name" required>
+                </div>
 
-            	 	<label for="city">City:</label>
-            	 	<input type="text" id="city" class="form-control" placeholder="City"></input>
-            	</div>
-            	<div class="form-group">
-            	 	<label for="state">State:</label>
-            	 	<input type="text" id="state" class="form-control" placeholder="State"></input>
-            	</div>
-            	<div class="form-group">
-            	 	<label for="radius">Radius:</label>
-            	 	<input type="number" id="radius" class="form-control" placeholder="50" max="150"></input>
-            	</div>
-            	<input type="submit" class="btn btn-success" id="submitButton"></input>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input class="form-control" type="email" id="email" name="email" required>
+                </div>
 
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea class="form-control" id="message" name="message" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-success" type="submit">Send</button>
+                </div>
             </form>
             </p>
-          </div>
-
-          <div id="upcoming-container">
-            <div id="upcoming">
-              <h2>Upcoming Shows</h2>
-              <div id="panelOne">
-                <h2>List</h2>
-                <div id="tabOneInner">Enter a Search Above</div>
-              </div>
-              <div id="panelTwo">
-                <h2>Map</h2>
-                <div id="tabTwoInner">Enter a Search Above</div>
-              </div>
-              <div class="clearfix">
-            </div>
           </div>
           
           <div class="mastfoot">
