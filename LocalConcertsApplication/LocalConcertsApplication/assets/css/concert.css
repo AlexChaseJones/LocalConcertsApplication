@@ -1,0 +1,35 @@
+.input-container {
+    float: left;
+    width: 32rem;
+    padding-top: 23px;
+    display: block;
+    margin: 7px;
+}
+
+.wrapper-container {
+	padding-top: 8rem;
+
+}
+
+.dropbtn {
+    background-color: #808080;
+    color: white;
+    padding: 8px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    width: 16rem; 
+    margin-left: 133px;
+
+.btn-success {
+    color: #fff;
+    background-color: #808080;
+    border-color: #808080;
+}
+
+.input-parent {
+    display: flex
+    flex-direction: row;
+    justify-content: space-around;
+    
+}

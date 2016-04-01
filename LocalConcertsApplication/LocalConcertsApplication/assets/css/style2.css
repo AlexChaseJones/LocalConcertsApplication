@@ -1,0 +1,127 @@
+#upcoming {
+	width: 700px;
+	background-color: rgba(255,255,255,.9);
+	box-shadow: 0px 0px 10px 1px black inset;
+}
+
+#panelOne, #panelTwo {
+	width: 310px;
+}
+
+#panelOne {
+	float: left;
+}
+
+#panelTwo {
+	float: right;
+}
+
+.clearfix {
+	clear: both;
+}
+
+.showCard {
+	width: 290px;
+	height:200px;
+	display: inline-block;
+	margin: 10px;
+	border-radius: 0px;
+	padding: 10px;
+	text-align: center;
+	vertical-align: bottom;
+	position: relative;
+	font-family: 'Raleway', san-serif;
+	box-shadow: 5px 5px 15px 1px black;
+	color: grey;
+}
+
+.showCard a {
+	color: grey;
+}
+
+.available {
+	background-color: rgba(0,20,0,.7);
+}
+
+.unavailable {
+	background-color: rgba(20,0,0,.7);
+}
+
+.buyTicket {
+	font-size: 1.3em;
+	font-weight: 700;
+	background-color: rgba(0,0,0,.2);
+	border-radius: 10px;
+	padding:5px;
+}
+
+#tabs {
+	 text-shadow: none;
+}
+
+.showCard > div {
+	margin: 5px auto;
+	width: 250px;
+	text-shadow: none;
+}
+
+.cardVenue::-webkit-scrollbar, .cardDate::-webkit-scrollbar, .cardName::-webkit-scrollbar { 
+    display: none; 
+}
+
+.cardName {
+	font-size: 1.2em;
+	font-weight: bold;
+	color: white;
+	padding: 5px;
+	background-color: rgba(0,0,0,.3);
+	border-radius: 5px;
+	box-shadow: 0px 0px 5px 1px black inset;
+	height: 38px;
+	overflow-y: scroll;
+	white-space: nowrap;
+}
+
+.cardDate {
+	border-top:2px solid black;
+	border-bottom:2px solid black;
+	background: radial-gradient(rgba(255,255,255,.7), rgba(255,255,255,.1), rgba(255,255,255,0));
+	height: 33px;
+	overflow-x: scroll;
+	white-space: nowrap; 
+}
+
+.cardVenue {
+	font-size: 1.2em;
+	width: 270px;
+    height: 60px;
+    line-height: 40px;
+    padding: 0px 5px;
+    text-align: center;
+    background-color: rgba(0,0,0,.3);
+    border-radius: 15px;
+    color: white;
+    overflow-x: scroll;
+    box-shadow: 0px 0px 5px 1px black inset;
+    border:1px solid rgba(0,0,0,.5);
+}
+
+.cardLocation {
+	width: 270px !important;
+	position: absolute;
+	font-size: 1.2em;
+	bottom: 35px;
+}
+
+.cardTicket {
+	width: 270px !important;
+	position: absolute;
+	bottom: 5px;
+}
+
+.showCard > div > p {
+	margin: 0px;
+	vertical-align: middle;
+    line-height: 29px;
+    display: inline-block;
+}
