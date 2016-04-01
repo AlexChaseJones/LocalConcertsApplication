@@ -57,6 +57,11 @@ body {
 .inner {
   padding: 30px;
 }
+#location {
+  
+  font-size: 20px
+   color:black;
+}
 
 
 /*
@@ -127,6 +132,7 @@ body {
   color: rgba(255,255,255,.5);
 }
 
+
 /*
  * Affix and center
  */
@@ -134,11 +140,11 @@ body {
 @media (min-width: 768px) {
   /* Pull out the header and footer */
   .masthead {
-    position: static;
+    position: fixed;
     top: 0;
   }
   .mastfoot {
-    position: static;
+    position: fixed;
     bottom: 0;
   }
   /* Start the vertical centering */

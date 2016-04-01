@@ -1,11 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="http://getbootstrap.com/favicon.ico"> <!--Replace this with an approriate logo.-->
+<!-- 
+	<link rel="stylesheet" type="text/css" href="assets/css/reset.css"> -->
+<!-- 	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css"> --> -->
+	<!-- <link rel="stylesheet" type="text/css" href="assets/css/style.css"> -->
+	<script type="text/javascript" src="assets/script/jquery-2.2.0.js"></script>
+	 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnxgE3AHJO1iESalw0NdaeSX0qHmBkP-A&callback=initMap"></script>
+	<title>test page</title>
+</head>
+<body>
 
+<button id="terminal">Click here for location</button>
+<div id="loctext"></div>
+<style>
+
+#terminal {
+	background-color: red;
+	color:blue;
+}
+#loctext {
+	height: 500px;
+	width: : 400px;
+}
+</style>
+
+
+<script type="text/javascript">
+
+
+	
+
+
+
+
+// getLocation();  //used to determine user's location
+// function getLocation() {
+	
+//     if (navigator.geolocation) {
+    	
+//         navigator.geolocation.getCurrentPosition(showPosition);
+//     } else { 
+//         x.innerHTML = "Geolocation is not supported by this browser.";
+//     }
+// }
+
+// function showPosition(position) {
+	
+// 	userLatitude = position.coords.latitude;
+// 	userLongitude = position.coords.longitude;
+//   // $("#loctext").html("Latitude: " + userLatitude + 
+//   //   "<br>Longitude: " + userLongitude);	
+// }
+
+ $(document).ready(function() {
+ terminal5 = new google.maps.LatLng(40.76965,-73.99275);
+
+function initialize()
+{
+ mapProp = {
+  center:terminal5,
+  zoom:14,
+  mapTypeId:google.maps.MapTypeId.ROADMAP
+  };
+ 
+ map = new google.maps.Map(document.getElementById("loctext"),mapProp);
+
+
+var marker=new google.maps.Marker({
+  position:terminal5,
+  });
+
+marker.setMap(map);
+}
+
+
+$("#terminal").on("click", function() {
+	console.log("in click");
+	initialize();
+});
+
+
+});
+
+</script>
+
+
+
+</body>
+</html>
+
+<!-- 
+-Original javascript for
+
+var locationArray = [];
 
 $('#upcoming-container').hide();
 
 $('#search').submit(function(e){ //this is the main function of the page
 	$('#upcoming-container').hide('slow'); //Handles upcoming container animation
-	$('#errorMSG').remove();
+	$('#errorMSG').remove(); 
 	e.preventDefault();
+	locationArray = []; //resets location Array to empty.
 	var artist = $('#artist').val().trim(); //gets user inputted values
 	var city = $('#city').val().trim();
 	var state = $('#state').val();
@@ -41,7 +141,11 @@ $('#search').submit(function(e){ //this is the main function of the page
 		});
 		generateURL(solo, artist, city, state, radius);	//Generates URL for AJAX.
 		ajaxBuild(); //locationArray is costructed in here, so that it can be used below
-
+		//davidsFunction(locationArray)
+		//-----Davids function will go here------
+		//
+		//
+		//
 		
 	}
 });
@@ -59,7 +163,8 @@ function ajaxBuild(){
 	        	limit++;
 	        	createShowCard(response[i].artists[0].name,response[i].datetime, response[i].venue.name, response[i].venue.city, response[i].venue.region, response[i].ticket_status, response[i].ticket_url);
 	      			//^^^^^Builds the HTML elements that are appended to #panelOne
-	      			showMap(response, i);
+	      		buildMapObjects(response[i].artists[0].name, response[i].venue.name, response[i].venue.latitude, response[i].venue.longitude)
+	      			//^^^^^^Builds the javascript array of venue objects that are stored in "locationArray"
 	      	} else {
 	        	i = response.length;
 	        	//Ends the for loop if limit is reached
@@ -100,7 +205,7 @@ function generateURL(solo, artist, city, state, radius){
 function createShowCard(name, date, venue, city, state, tickets, ticketsURL){
 	date = moment(date).format('MMMM Do YYYY');
 	console.log(ticketsURL)
-
+	debugger;
 	if (tickets == "available") {
 		ticketStatus = $('<a target="_blank">');
 		ticketStatus.attr('href', ticketsURL);
@@ -116,7 +221,6 @@ function createShowCard(name, date, venue, city, state, tickets, ticketsURL){
 	var locationInfo = $('<div class="cardLocation">').append('');
 	var ticketInfo = $('<div class="cardTicket">').append(ticketStatus);
 	var newCard = $('<div class="showCard">');
-	var line = $("<div class='divide'>");
 	(newCard).append(nameInfo).append(dateInfo).append(venueInfo).append(locationInfo).append(ticketInfo);
 	
 	if (tickets == "available") {
@@ -125,64 +229,24 @@ function createShowCard(name, date, venue, city, state, tickets, ticketsURL){
 		newCard.addClass('unavailable');
 	}
 
-	$('#tabOneInner').append(newCard).append(line);
+	$('#tabOneInner').append(newCard);
 
 }
 
-function showMap (response, i) {
-
-	currentVenue = new google.maps.LatLng(response[i].venue.latitude, response[i].venue.longitude);
-    function initialize()
-    {
-     mapProp = {
-      center:currentVenue,
-      zoom:12,
-      mapTypeId:google.maps.MapTypeId.ROADMAP,
-      disableDefaultUI: true,
-      zoomControl: true
-      };
-     var mapDiv = $('<div>');
-     mapDiv.attr('id', i);
-     mapDiv.addClass('maps')
-     var line = $("<div class='divide'>");
-     $('#tabTwoInner').append(mapDiv).append(line);
-     map = new google.maps.Map(document.getElementById(i),mapProp);
-
-    // var marker=new google.maps.Marker({
-    //   position:currentVenue,
-    //   });
-
-    // marker.setMap(map);
-
-    var infoBubble = new InfoBubble({
-      map: map,
-      content: "<div id='venuemaker'>"+response[i].venue.name+"</div>",
-      position: currentVenue,
-      shadowStyle: 1,
-      padding: 0,
-      backgroundColor: 'rgb(57,57,57)',
-      borderRadius: 5,
-      arrowSize: 10,
-      borderWidth: 1,
-      borderColor: '#2c2c2c',
-      disableAutoPan: true,
-      hideCloseButton: true,
-      arrowPosition: 30,
-      backgroundClassName: 'transparent',
-      arrowStyle: 2
-    });
-
-   infoBubble.open();
-    // var infowindow = new google.maps.InfoWindow({
-    //       content: response[i].venue.name
-    //       });
-
-    //     infowindow.open(map,marker);
-    //   }
+function buildMapObjects(name, venue, latitude, longitude){
+	var venueObject = {
+		artist: name,
+		venue: venue,
+		latitude: latitude,
+		longitude: longitude
 	}
-initialize();
-}
 
+	locationArray.push(venueObject)
+
+}
+$(function() {
+    $("#tabs").tabs();
+  });
 
 //http://api.bandsintown.com/events/search.json?location=Boston,MA&page=1&app_id=YOUR_APP_ID
 //Returns all events (page 1) in Boston, MA. no callback.
@@ -197,3 +261,4 @@ initialize();
 
 
 
+ -->
