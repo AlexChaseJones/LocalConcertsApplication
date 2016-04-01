@@ -38,32 +38,34 @@
 
 
 
-// getLocation();  //used to determine user's location
-// function getLocation() {
+getLocation();  //used to determine user's location
+function getLocation() {
 	
-//     if (navigator.geolocation) {
+    if (navigator.geolocation) {
     	
-//         navigator.geolocation.getCurrentPosition(showPosition);
-//     } else { 
-//         x.innerHTML = "Geolocation is not supported by this browser.";
-//     }
-// }
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
 
-// function showPosition(position) {
+function showPosition(position) {
 	
-// 	userLatitude = position.coords.latitude;
-// 	userLongitude = position.coords.longitude;
-//   // $("#loctext").html("Latitude: " + userLatitude + 
-//   //   "<br>Longitude: " + userLongitude);	
-// }
+	userLatitude = position.coords.latitude;
+	userLongitude = position.coords.longitude;
+   $("#loctext").html("Latitude: " + userLatitude + 
+     "<br>Longitude: " + userLongitude);
+     userLocation = new google.maps.LatLng(userLatitude,userLongitude);	
+}
 
  $(document).ready(function() {
- terminal5 = new google.maps.LatLng(40.76965,-73.99275);
+ 
 
 function initialize()
 {
+	alert("insdide initialize")
  mapProp = {
-  center:terminal5,
+  center:userLocation,
   zoom:14,
   mapTypeId:google.maps.MapTypeId.ROADMAP
   };
@@ -72,7 +74,7 @@ function initialize()
 
 
 var marker=new google.maps.Marker({
-  position:terminal5,
+  position:userLocation,
   });
 
 marker.setMap(map);
@@ -80,7 +82,7 @@ marker.setMap(map);
 
 
 $("#terminal").on("click", function() {
-	console.log("in click");
+	alert("in click");
 	initialize();
 });
 
