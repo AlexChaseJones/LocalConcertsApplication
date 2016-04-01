@@ -142,6 +142,11 @@
 	color:black;
 }
 
+#userlocation {
+	margin-left:20px;
+	color:black;
+}
+
 .divide {
 	border-top:2px solid black;
 }

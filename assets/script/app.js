@@ -1,6 +1,58 @@
+//Get user's location
 
+getLocation(); 
+
+function getLocation() {
+	
+    if (navigator.geolocation) {
+    	
+        navigator.geolocation.getCurrentPosition(showPosition);
+    }
+}
+
+function showPosition(position) {
+	
+	userLatitude = position.coords.latitude;
+	userLongitude = position.coords.longitude;
+    coordToCityName(userLatitude,userLongitude);
+	  }
+
+function coordToCityName(lat,long) {
+	var geocoder = new google.maps.Geocoder();
+	var latlng = new google.maps.LatLng(lat,long);
+
+	geocoder.geocode(
+	    {'latLng': latlng}, 
+	    function(results, status) {
+	        if (status == google.maps.GeocoderStatus.OK) {
+	                if (results[0]) {
+	                    var add= results[0].formatted_address ;
+	                    var  value=add.split(",");
+
+	                    count=value.length;
+	                    country=value[count-1];
+	                    userState=value[count-2];
+	                    userState=userState[1]+userState[2];
+	                    userCity=value[count-3];
+	                    
+	                }
+	                
+	        	}
+	         
+		    }
+		);
+	}
+
+//End of obtaining user's location
 
 $('#upcoming-container').hide();
+
+$("#userlocation").on("click", function () {
+	
+	$("#city").val(userCity);
+	$("#state").val(userState);
+	return false;
+ });
 
 $('#search').submit(function(e){ //this is the main function of the page
 	$('#upcoming-container').hide('slow'); //Handles upcoming container animation
@@ -99,7 +151,7 @@ function generateURL(solo, artist, city, state, radius){
 
 function createShowCard(name, date, venue, city, state, tickets, ticketsURL){
 	date = moment(date).format('MMMM Do YYYY');
-	console.log(ticketsURL)
+	
 
 	if (tickets == "available") {
 		ticketStatus = $('<a target="_blank">');
@@ -161,7 +213,7 @@ function showMap (response, i) {
       shadowStyle: 1,
       padding: 0,
       backgroundColor: 'rgb(57,57,57)',
-      borderRadius: 5,
+      borderRadius: 10,
       arrowSize: 10,
       borderWidth: 1,
       borderColor: '#2c2c2c',
