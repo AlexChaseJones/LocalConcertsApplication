@@ -61,15 +61,6 @@ $('#search').submit(function(e){ //this is the main function of the page
 	var artist = $('#artist').val().trim(); //gets user inputted values
 	var city = $('#city').val().trim();
 	var state = $('#state').val();
-	var radius = $('#radius').val();
-
-	if (radius < 10) {
-		radius = 10;
-		} else if (radius > 150) {
-			radius = 150;
-		} else if (!radius) {
-			radius = 50;
-		}
 
 	if (!city && !state) {
 		solo = true;
@@ -91,7 +82,7 @@ $('#search').submit(function(e){ //this is the main function of the page
 		        scrollTop: $("#upcoming").offset().top
 		    }, 500);
 		});
-		generateURL(solo, artist, city, state, radius);	//Generates URL for AJAX.
+		generateURL(solo, artist, city, state);	//Generates URL for AJAX.
 		ajaxBuild(); //locationArray is costructed in here, so that it can be used below
 
 		
@@ -120,7 +111,7 @@ function ajaxBuild(){
 	});
 }
 
-function generateURL(solo, artist, city, state, radius){
+function generateURL(solo, artist, city, state){
     if (solo) {
         introURL = "";
         endURL = "/events.json?"
@@ -146,7 +137,7 @@ function generateURL(solo, artist, city, state, radius){
     }
 
 
-    queryURL = "https://api.bandsintown.com/" + introURL + artistQuery + endURL + locationQuery + "&page=1&per_page=10&radius=" + radius + "&format=json&app_id=Concertch"
+    queryURL = "https://api.bandsintown.com/" + introURL + artistQuery + endURL + locationQuery + "&page=1&per_page=10&radius=150&format=json&app_id=Concertch"
 }
 
 function createShowCard(name, date, venue, city, state, tickets, ticketsURL){
