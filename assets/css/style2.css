@@ -18,6 +18,10 @@
 	float: right;
 }
 
+.inputState {
+	margin-left: 30px;
+	margin-bottom: 20px;
+}
 
 .clearfix {
 	clear: both;
@@ -134,4 +138,17 @@
 	height: 200px;
 	margin: 20px;
 	padding: 10px;
+}
+
+.input-container {
+   
+    float: left;
+    width: 32rem;
+    padding-top: 23px;
+    display: block;
+}
+
+.wrapper-container {
+	padding-top: 8rem;
+
 }

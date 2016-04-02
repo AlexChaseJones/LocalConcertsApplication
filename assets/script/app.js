@@ -1,12 +1,63 @@
-var locationArray = [];
+//Get user's location
+
+getLocation(); 
+
+function getLocation() {
+	
+    if (navigator.geolocation) {
+    	
+        navigator.geolocation.getCurrentPosition(showPosition);
+    }
+}
+
+function showPosition(position) {
+	
+	userLatitude = position.coords.latitude;
+	userLongitude = position.coords.longitude;
+    coordToCityName(userLatitude,userLongitude);
+	  }
+
+function coordToCityName(lat,long) {
+	var geocoder = new google.maps.Geocoder();
+	var latlng = new google.maps.LatLng(lat,long);
+
+	geocoder.geocode(
+	    {'latLng': latlng}, 
+	    function(results, status) {
+	        if (status == google.maps.GeocoderStatus.OK) {
+	                if (results[0]) {
+	                    var add= results[0].formatted_address ;
+	                    var  value=add.split(",");
+
+	                    count=value.length;
+	                    country=value[count-1];
+	                    userState=value[count-2];
+	                    userState=userState[1]+userState[2];
+	                    userCity=value[count-3];
+	                    
+	                }
+	                
+	        	}
+	         
+		    }
+		);
+	}
+
+//End of obtaining user's location
 
 $('#upcoming-container').hide();
+
+$("#userlocation").on("click", function () {
+	
+	$("#city").val(userCity);
+	$("#state").val(userState);
+	return false;
+ });
 
 $('#search').submit(function(e){ //this is the main function of the page
 	$('#upcoming-container').hide('slow'); //Handles upcoming container animation
 	$('#errorMSG').remove();
 	e.preventDefault();
-	locationArray = []; //resets location Array to empty.
 	var artist = $('#artist').val().trim(); //gets user inputted values
 	var city = $('#city').val().trim();
 	var state = $('#state').val();
@@ -84,7 +135,7 @@ function generateURL(solo, artist, city, state, radius){
 
     if (!city && !state && artist) {
         artistQuery = "artists/" + artist + "/events.json?";
-        locationQuery = "&location=use_geoip";
+        locationQuery = "";
     } else if (!artist && (city || state)) {
         artistQuery = "";
         locationQuery = "&location=" + city + state;
@@ -100,7 +151,7 @@ function generateURL(solo, artist, city, state, radius){
 
 function createShowCard(name, date, venue, city, state, tickets, ticketsURL){
 	date = moment(date).format('MMMM Do YYYY');
-	console.log(ticketsURL)
+	
 
 	if (tickets == "available") {
 		ticketStatus = $('<a target="_blank">');
@@ -117,6 +168,7 @@ function createShowCard(name, date, venue, city, state, tickets, ticketsURL){
 	var locationInfo = $('<div class="cardLocation">').append('');
 	var ticketInfo = $('<div class="cardTicket">').append(ticketStatus);
 	var newCard = $('<div class="showCard">');
+	var line = $("<div class='divide'>");
 	(newCard).append(nameInfo).append(dateInfo).append(venueInfo).append(locationInfo).append(ticketInfo);
 	
 	if (tickets == "available") {
@@ -125,43 +177,63 @@ function createShowCard(name, date, venue, city, state, tickets, ticketsURL){
 		newCard.addClass('unavailable');
 	}
 
-	$('#tabOneInner').append(newCard);
+	$('#tabOneInner').append(newCard).append(line);
 
 }
 
 function showMap (response, i) {
+
 	currentVenue = new google.maps.LatLng(response[i].venue.latitude, response[i].venue.longitude);
     function initialize()
     {
      mapProp = {
       center:currentVenue,
       zoom:12,
-      mapTypeId:google.maps.MapTypeId.ROADMAP
+      mapTypeId:google.maps.MapTypeId.ROADMAP,
+      disableDefaultUI: true,
+      zoomControl: true
       };
      var mapDiv = $('<div>');
      mapDiv.attr('id', i);
      mapDiv.addClass('maps')
-     $('#tabTwoInner').append(mapDiv);
+     var line = $("<div class='divide'>");
+     $('#tabTwoInner').append(mapDiv).append(line);
      map = new google.maps.Map(document.getElementById(i),mapProp);
 
-    var marker=new google.maps.Marker({
-      position:currentVenue,
-      });
+    // var marker=new google.maps.Marker({
+    //   position:currentVenue,
+    //   });
 
-    marker.setMap(map);
-    var infowindow = new google.maps.InfoWindow({
-          content: "venue name"
-          });
+    // marker.setMap(map);
 
-        infowindow.open(map,marker);
-      }
+    var infoBubble = new InfoBubble({
+      map: map,
+      content: "<div id='venuemaker'>"+response[i].venue.name+"</div>",
+      position: currentVenue,
+      shadowStyle: 1,
+      padding: 0,
+      backgroundColor: 'rgb(57,57,57)',
+      borderRadius: 10,
+      arrowSize: 10,
+      borderWidth: 1,
+      borderColor: '#2c2c2c',
+      disableAutoPan: true,
+      hideCloseButton: true,
+      arrowPosition: 30,
+      backgroundClassName: 'transparent',
+      arrowStyle: 2
+    });
+
+   infoBubble.open();
+    // var infowindow = new google.maps.InfoWindow({
+    //       content: response[i].venue.name
+    //       });
+
+    //     infowindow.open(map,marker);
+    //   }
+	}
 initialize();
 }
-
-$(function() {
-    $("#tabs").tabs();
-  });
-
 
 
 //http://api.bandsintown.com/events/search.json?location=Boston,MA&page=1&app_id=YOUR_APP_ID
@@ -174,6 +246,5 @@ $(function() {
 //Returns all events in Boston (page 2), with 3 results. no callback.
 
 //http://api.bandsintown.com/events/recommended.json?artists[]=Common&artists[]=Dwele&location=Chicago,IL&app_id=YOUR_APP_ID&callback=bitEvents
-
 
 
